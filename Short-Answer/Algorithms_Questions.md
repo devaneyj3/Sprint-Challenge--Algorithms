@@ -6,15 +6,16 @@ Give an analysis of the running time of each snippet of
 pseudocode with respect to the input size n of each of the following:
 
 ```python
-a)  a = 0
-    while (a < n * n * n):
+a)  a = 0 # 0(1) constant because its hard coded
+    while (a < n * n * n): # 0(n) because its a loop and performs one operation
       a = a + n * n
+      # o(n)
 ```
 
 
 ```
-b)  sum = 0
-    for i in range(n):
+b)  sum = 0  
+    for i in range(n): 
       j = 1
       while j < n:
         j *= 2

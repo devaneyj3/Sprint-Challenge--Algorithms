@@ -1,3 +1,4 @@
+from helper import selection_sort
 class SortingRobot:
     def __init__(self, l):
         """
@@ -70,8 +71,10 @@ class SortingRobot:
         if self._item is None or self._list[self._position] is None:
             return None
         elif self._item > self._list[self._position]:
+            print(f'self.item: {self._item} > {self._list[self._position]}')
             return 1
         elif self._item < self._list[self._position]:
+            print(f"{self._item} is less than {self._list[self._position]}")
             return -1
         else:
             return 0
@@ -96,15 +99,56 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
+        
+        # use merge sort for big inputs
+        # 1. move robot to left of right to see if there is an item
+        # pick up the item at the start of the list
+        self.swap_item()
+        # we go right until the end of the list
+        
+        self.set_light_on()
+        while self.light_is_on():
+            while self.can_move_right():
+                # move to the furthest rightmost position
+                self.move_right()     
+                # compare the item you have to item at next index
+                if self.compare_item() == 1:
+                    print('in if')
+                    self.swap_item()
+                    # move left to put item in the left position
+                print(f'\nitem is now {self._item}')
+            while self.can_move_left():
+                self.move_left()
+                print(f'\nposition is {self._position}\n')
+                self.swap_item()
+                print(f'\nitem is now {self._item}')
+                if self.compare_item() == 1:
+                    print('in if')
+                    self.swap_item()
+        # if self.compare_item() = -1:
+        #     sorted = True
+            #     
+            # pick up item
+            # swap it
+            self.set_light_off()
+            # print(f'\nitem is now {self._item}')
+            # compare prev item with the one at at current index
+                # move right and continue         
+        # go left and put that item down
+        # 2. if you can't go left or right return
+        # 3. if there is an item pick to up and go right to compare it to the one to the right
+        #  if it is greater set the number down and pick up item at the left
+        # do it again with recursion till at the end of list
+        # 1. use selection sort to sort the items
         # Fill this out
-        pass
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    # l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [5, 4, 3, 2, 1]
 
     robot = SortingRobot(l)
 
