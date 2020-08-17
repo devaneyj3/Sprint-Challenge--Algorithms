@@ -1,4 +1,4 @@
-from helper import selection_sort
+
 class SortingRobot:
     def __init__(self, l):
         """
@@ -120,81 +120,51 @@ class SortingRobot:
             [none,5,4,3,2]
         """
         
-        print(int(len(self._list) / 2))
-        
-    #     def merge(arrA, arrB):
-    # merged_arr = arrA + arrB
-    # final_arr = selection_sort(merged_arr)
-    # print(f'merged_arr: {final_arr}')
-    # return merged_arr
-
-
-
-
-# TO-DO: implement the Merge Sort function below recursively
-# def merge_sort(arr):
-#     if len(arr) > 1:
-#         middle = int(len(arr) / 2)
-#         left_arr = arr[:middle] 
-#         right_arr = arr[middle:]
-#         merge_sort(left_arr)
-#         merge_sort(right_arr)
-#         sortedA = selection_sort(left_arr)
-#         sortedB = selection_sort(right_arr)
-#         arr_merge = merge(sortedA, sortedB)
-#         return arr_merge
-#     else:
-#         return arr
-        pass
         # use merge sort for big inputs
-        # 1. move robot to left of right to see if there is an item
-        # pick up the item at the start of the list
-        # self.swap_item()
-        # we go right until the end of the list
-        # self.set_light_on()
-        # # start by swaping the item
-        # self.swap_item()
-        # # go right and swap items that are greater than the current item held
-        # self.go_right()
-        # # move left to put item in the left position
-        # self.go_left()
+    
+        # self.sort_list(self._list)
+        self.selection_sort(self._list)
+        
 
-    def go_left(self):
-        if self.move_left() == True and self.compare_item() == 1:
-            # move to the furthest rightmost position
-            self.move_left() 
-            self.swap_item()
-            # print(f'\nposition: {self._position}')
-            # print(f'\nitem is now {self._item}')
-            self.sort()
-    def right_sort(self):
-        if self.can_move_right() == False:
-            return
-        self.swap_item()
-        self.move_right()
-        if self.compare_item() == -1:
-            self.swap_item()
-        self.sort()
-    # def left_sort(self):
-    #     if self.can_move_left() == False:
-    #         return
-    #     self.swap_item()
-    #     self.move_left()
-    #     if self.compare_item() == -1:
-    #         self.swap_item()
-    #     self.sort()
-    # def merge(arrA, arrB):
-    # merged_arr = arrA + arrB
-    # final_arr = selection_sort(merged_arr)
-    # print(f'merged_arr: {final_arr}')
-    # return merged_arr
+
+    def selection_sort(self,arr):
+    # loop through n-1 elements
+        for i in range(0, len(arr)):
+            value = arr[i]
+            left_index = i - 1
+            while value < arr[left_index] and left_index >= 0:
+                arr[left_index + 1] = arr[left_index]
+                left_index -= 1
+            arr[left_index + 1] = value
+        return arr
+    # def sort_list(self, items):
+    #     for index, item in enumerate(items):
+    #         if len(items) - 1 > index:
+    #             if item is None:
+    #                 items[index] = items[index - 1]
+    #                 items[index - 1] = item
+    #                 continue
+
+    #             if items[index + 1] is None:
+    #                 items[index] = items[index + 1]
+    #                 items[index + 1] = item
+    #                 continue
+
+    #             if item > items[index + 1]:
+    #                 items[index] = items[index + 1]
+    #                 items[index + 1] = item
+
+    #                 self.sort_list(items)
+    #             else:
+    #                 continue
+    #     return items
+
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
     # l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
-    l = [5, 4, 3, 2, 1]
-
+    l = [1, -38, -95, 4, 23, -73, -65, -36, 85, 2, 58, -26, -55, 96, 55, -76, 64, 45, 69, 36, 69, 47, 29, -47, 13, 89, -57, -88, -87, 54, 60, 56, -98, -78, 59, 93, -41, -74, 73, -35, -23, -79, -35, 46, -18, -18, 37, -64, 14, -57, -2, 15, -85, 45, -73, -2, 79, -87, -100, 21, -51, 22, 26, -59, 81, 59, -24, 24, -81, 43, 61, 52, 38, -88, -95, 87, -57, -37, -65, -47, -3, 21, -77, 98, 25, 1, -36, 39, 78, 47, -35, -40, -69, -81, 11, -47, 21, 25, -53, -31]
     robot = SortingRobot(l)
 
     robot.sort()
