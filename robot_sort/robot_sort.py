@@ -71,10 +71,10 @@ class SortingRobot:
         if self._item is None or self._list[self._position] is None:
             return None
         elif self._item > self._list[self._position]:
-            print(f'self.item: {self._item} > {self._list[self._position]}')
+            # print(f'self.item: {self._item} > {self._list[self._position]}')
             return 1
         elif self._item < self._list[self._position]:
-            print(f"{self._item} is less than {self._list[self._position]}")
+            # print(f"{self._item} is less than {self._list[self._position]}")
             return -1
         else:
             return 0
@@ -95,54 +95,99 @@ class SortingRobot:
         """
         return self._light == "ON"
 
-    def sort(self):
+    def sort(self): 
         """
         Sort the robot's list.
+        """ 
+        
+        """     [5,4,3,2,1] 
+            1. swap the 0 item with none
+            2.move right to compare_item
+            held item is 5
+            3. if compare item returns 1, swap
+            held item is 4
+                [none, 5,3,2,1]
+            4. move right to compare_item
+            3. if compare item returns 1, swap
+            held item is 3
+                [none,5,4,2,1]
+            4. move right to compare_item
+            3. if compare item returns 1, swap
+                held item is 2
+                [none,5,4,3,1]
+            4. move right to compare_item
+            3. if compare item returns 1, swap
+            [none,5,4,3,2]
         """
         
+        print(int(len(self._list) / 2))
+        
+    #     def merge(arrA, arrB):
+    # merged_arr = arrA + arrB
+    # final_arr = selection_sort(merged_arr)
+    # print(f'merged_arr: {final_arr}')
+    # return merged_arr
+
+
+
+
+# TO-DO: implement the Merge Sort function below recursively
+# def merge_sort(arr):
+#     if len(arr) > 1:
+#         middle = int(len(arr) / 2)
+#         left_arr = arr[:middle] 
+#         right_arr = arr[middle:]
+#         merge_sort(left_arr)
+#         merge_sort(right_arr)
+#         sortedA = selection_sort(left_arr)
+#         sortedB = selection_sort(right_arr)
+#         arr_merge = merge(sortedA, sortedB)
+#         return arr_merge
+#     else:
+#         return arr
+        pass
         # use merge sort for big inputs
         # 1. move robot to left of right to see if there is an item
         # pick up the item at the start of the list
-        self.swap_item()
+        # self.swap_item()
         # we go right until the end of the list
-        
-        self.set_light_on()
-        while self.light_is_on():
-            while self.can_move_right():
-                # move to the furthest rightmost position
-                self.move_right()     
-                # compare the item you have to item at next index
-                if self.compare_item() == 1:
-                    print('in if')
-                    self.swap_item()
-                    # move left to put item in the left position
-                print(f'\nitem is now {self._item}')
-            while self.can_move_left():
-                self.move_left()
-                print(f'\nposition is {self._position}\n')
-                self.swap_item()
-                print(f'\nitem is now {self._item}')
-                if self.compare_item() == 1:
-                    print('in if')
-                    self.swap_item()
-        # if self.compare_item() = -1:
-        #     sorted = True
-            #     
-            # pick up item
-            # swap it
-            self.set_light_off()
+        # self.set_light_on()
+        # # start by swaping the item
+        # self.swap_item()
+        # # go right and swap items that are greater than the current item held
+        # self.go_right()
+        # # move left to put item in the left position
+        # self.go_left()
+
+    def go_left(self):
+        if self.move_left() == True and self.compare_item() == 1:
+            # move to the furthest rightmost position
+            self.move_left() 
+            self.swap_item()
+            # print(f'\nposition: {self._position}')
             # print(f'\nitem is now {self._item}')
-            # compare prev item with the one at at current index
-                # move right and continue         
-        # go left and put that item down
-        # 2. if you can't go left or right return
-        # 3. if there is an item pick to up and go right to compare it to the one to the right
-        #  if it is greater set the number down and pick up item at the left
-        # do it again with recursion till at the end of list
-        # 1. use selection sort to sort the items
-        # Fill this out
-
-
+            self.sort()
+    def right_sort(self):
+        if self.can_move_right() == False:
+            return
+        self.swap_item()
+        self.move_right()
+        if self.compare_item() == -1:
+            self.swap_item()
+        self.sort()
+    # def left_sort(self):
+    #     if self.can_move_left() == False:
+    #         return
+    #     self.swap_item()
+    #     self.move_left()
+    #     if self.compare_item() == -1:
+    #         self.swap_item()
+    #     self.sort()
+    # def merge(arrA, arrB):
+    # merged_arr = arrA + arrB
+    # final_arr = selection_sort(merged_arr)
+    # print(f'merged_arr: {final_arr}')
+    # return merged_arr
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
