@@ -1,3 +1,4 @@
+
 class SortingRobot:
     def __init__(self, l):
         """
@@ -70,8 +71,10 @@ class SortingRobot:
         if self._item is None or self._list[self._position] is None:
             return None
         elif self._item > self._list[self._position]:
+            # print(f'self.item: {self._item} > {self._list[self._position]}')
             return 1
         elif self._item < self._list[self._position]:
+            # print(f"{self._item} is less than {self._list[self._position]}")
             return -1
         else:
             return 0
@@ -92,20 +95,76 @@ class SortingRobot:
         """
         return self._light == "ON"
 
-    def sort(self):
+    def sort(self): 
         """
         Sort the robot's list.
+        """ 
+        
+        """     [5,4,3,2,1] 
+            1. swap the 0 item with none
+            2.move right to compare_item
+            held item is 5
+            3. if compare item returns 1, swap
+            held item is 4
+                [none, 5,3,2,1]
+            4. move right to compare_item
+            3. if compare item returns 1, swap
+            held item is 3
+                [none,5,4,2,1]
+            4. move right to compare_item
+            3. if compare item returns 1, swap
+                held item is 2
+                [none,5,4,3,1]
+            4. move right to compare_item
+            3. if compare item returns 1, swap
+            [none,5,4,3,2]
         """
-        # Fill this out
-        pass
+        
+        # use merge sort for big inputs
+    
+        # self.sort_list(self._list)
+        self.selection_sort(self._list)
+        
 
+
+    def selection_sort(self,arr):
+    # loop through n-1 elements
+        for i in range(0, len(arr)):
+            value = arr[i]
+            left_index = i - 1
+            while value < arr[left_index] and left_index >= 0:
+                arr[left_index + 1] = arr[left_index]
+                left_index -= 1
+            arr[left_index + 1] = value
+        return arr
+    # def sort_list(self, items):
+    #     for index, item in enumerate(items):
+    #         if len(items) - 1 > index:
+    #             if item is None:
+    #                 items[index] = items[index - 1]
+    #                 items[index - 1] = item
+    #                 continue
+
+    #             if items[index + 1] is None:
+    #                 items[index] = items[index + 1]
+    #                 items[index + 1] = item
+    #                 continue
+
+    #             if item > items[index + 1]:
+    #                 items[index] = items[index + 1]
+    #                 items[index + 1] = item
+
+    #                 self.sort_list(items)
+    #             else:
+    #                 continue
+    #     return items
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
-
+    # l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [1, -38, -95, 4, 23, -73, -65, -36, 85, 2, 58, -26, -55, 96, 55, -76, 64, 45, 69, 36, 69, 47, 29, -47, 13, 89, -57, -88, -87, 54, 60, 56, -98, -78, 59, 93, -41, -74, 73, -35, -23, -79, -35, 46, -18, -18, 37, -64, 14, -57, -2, 15, -85, 45, -73, -2, 79, -87, -100, 21, -51, 22, 26, -59, 81, 59, -24, 24, -81, 43, 61, 52, 38, -88, -95, 87, -57, -37, -65, -47, -3, 21, -77, 98, 25, 1, -36, 39, 78, 47, -35, -40, -69, -81, 11, -47, 21, 25, -53, -31]
     robot = SortingRobot(l)
 
     robot.sort()
